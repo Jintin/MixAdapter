@@ -15,7 +15,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-  compile 'com.github.jintin:MixAdapter:1.0'
+  compile 'com.github.jintin:MixAdapter:1.1'
 }
 ```
 
