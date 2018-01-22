@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.jintin.app.adapter.StringAdapter;
 import com.jintin.mixadapter.MixAdapter;
-import com.jintin.mixadapter.OnMixAdapterItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,22 +35,23 @@ public class GridActivity extends BaseActivity {
     protected RecyclerView.Adapter getAdapter() {
         MixAdapter<StringAdapter.Holder> adapter = new MixAdapter<>();
         StringAdapter adapterA = new StringAdapter(itemsA);
-        setListener(adapterA);
+        setListener(adapter, adapterA);
         StringAdapter adapterB = new StringAdapter(itemsB);
-        setListener(adapterB);
+        setListener(adapter, adapterB);
         StringAdapter adapterC = new StringAdapter(itemsC);
-        setListener(adapterC);
+        setListener(adapter, adapterC);
         adapter.addAdapter(adapterA);
         adapter.addAdapter(adapterB);
         adapter.addAdapter(adapterC);
         return adapter;
     }
 
-    private void setListener(StringAdapter adapter) {
-        adapter.setItemClickListener(new OnMixAdapterItemClickListener() {
+    private void setListener(final MixAdapter mixAdapter, final StringAdapter adapter) {
+        adapter.setItemClickListener(new StringAdapter.OnAdapterItemClickListener() {
             @Override
-            public void onItemClick(int position, int parentPosition) {
-                Toast.makeText(GridActivity.this, "child: " + position + ", global: " + parentPosition, Toast.LENGTH_SHORT).show();
+            public void onItemClick(int position) {
+                int childPosition = position - mixAdapter.getAdapterOffset(adapter);
+                Toast.makeText(GridActivity.this, "child: " + childPosition + ", global: " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

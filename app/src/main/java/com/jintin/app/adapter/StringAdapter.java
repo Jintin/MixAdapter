@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jintin.app.R;
-import com.jintin.mixadapter.OnMixAdapterItemClickListener;
 
 import java.util.List;
 
@@ -16,46 +15,36 @@ import java.util.List;
  */
 public class StringAdapter extends RecyclerView.Adapter<StringAdapter.Holder> {
 
+    public interface OnAdapterItemClickListener {
+        void onItemClick(int position);
+    }
+
     private List<String> items;
-    private RecyclerView recyclerView;
-    private OnMixAdapterItemClickListener listener;
+    private OnAdapterItemClickListener listener;
 
     public StringAdapter(List<String> items) {
         this.items = items;
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        this.recyclerView = null;
-    }
-
-    @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_string, parent, false);
+        final Holder holder = new Holder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (recyclerView != null) {
-                    int position = (int) view.getTag();
-                    int parentPosition = recyclerView.getChildAdapterPosition(v);
-                    if (listener != null) {
-                        listener.onItemClick(position, parentPosition);
-                    }
+                int position = holder.getAdapterPosition();
+                if (listener != null) {
+                    listener.onItemClick(position);
                 }
             }
         });
-        return new Holder(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         holder.textView.setText(items.get(position));
-        holder.itemView.setTag(position);
     }
 
     @Override
@@ -63,7 +52,7 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.Holder> {
         return items.size();
     }
 
-    public void setItemClickListener(OnMixAdapterItemClickListener listener) {
+    public void setItemClickListener(OnAdapterItemClickListener listener) {
         this.listener = listener;
     }
 

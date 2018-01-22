@@ -82,4 +82,15 @@ public class MixAdapter<T extends RecyclerView.ViewHolder> extends Adapter<T> {
         }
         return size;
     }
+
+    public int getAdapterOffset(Adapter target) {
+        int offset = 0;
+        for (Adapter<? extends T> adapter : adapters) {
+            if (adapter.equals(target)) {
+                return offset;
+            }
+            offset += adapter.getItemCount();
+        }
+        return offset;
+    }
 }
