@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val items = arrayOf("Basic", "Grid", "Multi-Holder", "Dynamic")
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         listView.adapter = adapter
-        listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, l ->
+        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             when (position) {
                 0 -> startActivity(Intent(this@MainActivity, BasicActivity::class.java))
                 1 -> startActivity(Intent(this@MainActivity, GridActivity::class.java))

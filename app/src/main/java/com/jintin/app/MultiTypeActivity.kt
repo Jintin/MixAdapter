@@ -25,20 +25,13 @@ class MultiTypeActivity : BaseActivity() {
     }
 
     override fun getAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        val adapter = MixAdapter<RecyclerView.ViewHolder>()
         val adapterA = StringAdapter(itemsA)
         val adapterB = StringAdapter(itemsB)
         val adapterC = StringAdapter(itemsC)
         val adapter1 = ColorAdapter(this, items1)
         val adapter2 = ColorAdapter(this, items2)
         val adapter3 = ColorAdapter(this, items3)
-        adapter.addAdapter(adapterA)
-        adapter.addAdapter(adapter1)
-        adapter.addAdapter(adapterB)
-        adapter.addAdapter(adapter2)
-        adapter.addAdapter(adapterC)
-        adapter.addAdapter(adapter3)
-        return adapter
+        return MixAdapter(mutableListOf(adapterA, adapter1, adapterB, adapter2, adapterC, adapter3))
     }
 
 }

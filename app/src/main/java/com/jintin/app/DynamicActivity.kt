@@ -35,18 +35,16 @@ class DynamicActivity : BaseActivity() {
     override fun getAdapter(): RecyclerView.Adapter<StringAdapter.Holder> {
         val adapter = MixAdapter<StringAdapter.Holder>()
         val adapterA = StringAdapter(itemsA)
-        setListener(itemsA, adapterA, adapter)
         val adapterB = StringAdapter(itemsB)
-        setListener(itemsB, adapterB, adapter)
         val adapterC = StringAdapter(itemsC)
-        setListener(itemsC, adapterC, adapter)
-        adapter.addAdapter(adapterA)
-        adapter.addAdapter(adapterB)
-        adapter.addAdapter(adapterC)
+        addChild(itemsA, adapterA, adapter)
+        addChild(itemsB, adapterB, adapter)
+        addChild(itemsC, adapterC, adapter)
         return adapter
     }
 
-    private fun setListener(items: MutableList<String>, adapter: StringAdapter, mixAdapter: MixAdapter<StringAdapter.Holder>) {
+    private fun addChild(items: MutableList<String>, adapter: StringAdapter, mixAdapter: MixAdapter<StringAdapter.Holder>) {
+        mixAdapter.addAdapter(adapter)
         adapter.setItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
             override fun onItemClick(position: Int) {
                 val childPosition = position - mixAdapter.getAdapterOffset(adapter)
