@@ -1,4 +1,7 @@
 # MixAdapter
+
+[![Build Status](https://travis-ci.org/Jintin/MixAdapter.svg?branch=master)](https://travis-ci.org/Jintin/MixAdapter)
+
 Compose multiple Adapter for RecyclerView in Android
 
 ## Installation
