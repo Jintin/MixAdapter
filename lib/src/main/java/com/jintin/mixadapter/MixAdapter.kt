@@ -1,6 +1,7 @@
 package com.jintin.mixadapter
 
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.NO_ID
 import android.view.ViewGroup
 import java.lang.RuntimeException
 import java.util.*
@@ -33,17 +34,60 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         }
     }
 
+    override fun onViewAttachedToWindow(holder: T) {
+        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
+                .forEach {
+                    it.onViewAttachedToWindow(holder)
+                }
+    }
+
+    override fun onViewDetachedFromWindow(holder: T) {
+        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
+                .forEach {
+                    it.onViewDetachedFromWindow(holder)
+                }
+    }
+
+    override fun onViewRecycled(holder: T) {
+        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
+                .forEach {
+                    it.onViewRecycled(holder)
+                }
+    }
+
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        super.setHasStableIds(hasStableIds)
+        adapters.forEach {
+            it.setHasStableIds(hasStableIds)
+        }
+    }
+
+    override fun registerAdapterDataObserver(observer: RecyclerView.AdapterDataObserver?) {
+        super.registerAdapterDataObserver(observer)
+        adapters.forEach {
+            it.registerAdapterDataObserver(observer)
+        }
+    }
+
+    override fun unregisterAdapterDataObserver(observer: RecyclerView.AdapterDataObserver?) {
+        super.unregisterAdapterDataObserver(observer)
+        adapters.forEach {
+            it.unregisterAdapterDataObserver(observer)
+        }
+    }
+
     override fun getItemViewType(position: Int): Int {
         var offset = 0
-        for (i in adapters.indices) {
-            val adapter = adapters[i]
-            if (position < offset + adapter.itemCount) {
-                return VIEW_TYPE_OFFSET * i + adapter.getItemViewType(position - offset)
+        var index = position
+        adapters.forEach {
+            if (index < it.itemCount) {
+                return offset + it.getItemViewType(index)
             } else {
-                offset += adapter.itemCount
+                offset += VIEW_TYPE_OFFSET
+                index -= it.itemCount
             }
         }
-        throw RuntimeException("getItemViewType size exceed")
+        throw RuntimeException("not found view type in adapters")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T {
@@ -55,11 +99,9 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
 
     override fun onBindViewHolder(holder: T, position: Int) {
         var offset = 0
-        adapters.indices
-                .asSequence()
-                .map { adapters[it] as RecyclerView.Adapter<T> }
+        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
                 .forEach {
-                    if (position < offset + it.itemCount) {
+                    if (position - offset < it.itemCount) {
                         it.onBindViewHolder(holder, position - offset)
                         return
                     } else {
@@ -70,6 +112,19 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
 
     override fun getItemCount(): Int {
         return adapters.sumBy { it.itemCount }
+    }
+
+
+    override fun getItemId(position: Int): Long {
+        var offset = 0
+        adapters.forEach {
+            if (position - offset < it.itemCount) {
+                return it.getItemId(position - offset)
+            } else {
+                offset += it.itemCount
+            }
+        }
+        return NO_ID
     }
 
     fun getAdapterOffset(target: RecyclerView.Adapter<*>): Int {
