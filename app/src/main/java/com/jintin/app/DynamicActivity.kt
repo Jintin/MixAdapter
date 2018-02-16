@@ -9,17 +9,14 @@ import android.widget.Toast
 import com.jintin.app.adapter.StringAdapter
 import com.jintin.mixadapter.MixAdapter
 
+/**
+ * Dynamic add/remove RecyclerView data for MixAdapter
+ */
 class DynamicActivity : BaseActivity() {
 
     private val itemsA = mutableListOf("A1", "A2", "A3", "A4", "A5")
     private val itemsB = mutableListOf("B1", "B2", "B3", "B4", "B5")
     private val itemsC = mutableListOf("C1", "C2", "C3", "C4", "C5")
-
-    interface OnItemActionListener {
-        fun onDelete()
-
-        fun onClone()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,30 +45,26 @@ class DynamicActivity : BaseActivity() {
         adapter.setItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
             override fun onItemClick(position: Int) {
                 val childPosition = position - mixAdapter.getAdapterOffset(adapter)
-                showDialog(object : OnItemActionListener {
-                    override fun onDelete() {
-                        items.removeAt(childPosition)
-                        mixAdapter.notifyItemRemoved(position)
-                    }
-
-                    override fun onClone() {
-                        val string = items[childPosition]
-                        items.add(childPosition + 1, string)
-                        mixAdapter.notifyItemInserted(position + 1)
-                    }
+                showDialog(onDelete = {
+                    items.removeAt(childPosition)
+                    mixAdapter.notifyItemRemoved(position)
+                }, onClone = {
+                    val string = items[childPosition]
+                    items.add(childPosition + 1, string)
+                    mixAdapter.notifyItemInserted(position + 1)
                 })
             }
         })
     }
 
-    private fun showDialog(listener: OnItemActionListener) {
+    private fun showDialog(onDelete: () -> Unit, onClone: () -> Unit) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Select action")
         builder.setItems(arrayOf("Delete", "Clone")) { dialog, which ->
             dialog.dismiss()
             when (which) {
-                0 -> listener.onDelete()
-                1 -> listener.onClone()
+                0 -> onDelete()
+                1 -> onClone()
             }
         }
         builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }

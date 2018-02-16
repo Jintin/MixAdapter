@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import java.lang.RuntimeException
 import java.util.*
 
+/**
+ * Compose your RecyclerView.Adapter into MutableList and dynamic dispatch the related function to each correspond RecyclerView.Adapter
+ */
 class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
     private val adapters: MutableList<RecyclerView.Adapter<out T>>
 

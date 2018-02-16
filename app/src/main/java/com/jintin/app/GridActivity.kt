@@ -7,6 +7,9 @@ import android.widget.Toast
 import com.jintin.app.adapter.StringAdapter
 import com.jintin.mixadapter.MixAdapter
 
+/**
+ * Grid layout example of MixAdapter
+ */
 class GridActivity : BaseActivity() {
 
     private val itemsA = listOf("A1", "A2", "A3", "A4", "A5")

@@ -41,19 +41,22 @@ class ColorAdapter(private val context: Context, private val items: List<Color>)
         val color = ContextCompat.getColor(context, items[position].value)
         when (getItemViewType(position)) {
             TYPE_HOLDER1 -> {
-                val holder1 = holder as Holder1
-                holder1.colorView.setBackgroundColor(color)
+                if (holder is Holder1) {
+                    holder.colorView.setBackgroundColor(color)
+                }
             }
             TYPE_HOLDER2 -> {
-                val holder2 = holder as Holder2
-                holder2.colorView.setBackgroundColor(color)
-                holder2.colorView2.setBackgroundColor(color)
+                if (holder is Holder2) {
+                    holder.colorView.setBackgroundColor(color)
+                    holder.colorView2.setBackgroundColor(color)
+                }
             }
             TYPE_HOLDER3 -> {
-                val holder3 = holder as Holder3
-                holder3.colorView.setBackgroundColor(color)
-                holder3.colorView2.setBackgroundColor(color)
-                holder3.colorView3.setBackgroundColor(color)
+                if (holder is Holder3) {
+                    holder.colorView.setBackgroundColor(color)
+                    holder.colorView2.setBackgroundColor(color)
+                    holder.colorView3.setBackgroundColor(color)
+                }
             }
         }
     }
@@ -68,15 +71,24 @@ class ColorAdapter(private val context: Context, private val items: List<Color>)
         private const val TYPE_HOLDER3 = 3
     }
 
+    /**
+     * Sample holder 1
+     */
     class Holder1 constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var colorView: View = itemView.findViewById(R.id.color)
     }
 
+    /**
+     * Sample holder 2
+     */
     class Holder2 constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var colorView: View = itemView.findViewById(R.id.color)
         internal var colorView2: View = itemView.findViewById(R.id.color2)
     }
 
+    /**
+     * Sample holder 3
+     */
     class Holder3 constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var colorView: View = itemView.findViewById(R.id.color)
         internal var colorView2: View = itemView.findViewById(R.id.color2)

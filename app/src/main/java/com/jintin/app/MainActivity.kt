@@ -7,6 +7,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 
+/**
+ * Project root
+ */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

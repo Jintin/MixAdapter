@@ -8,6 +8,9 @@ import com.jintin.app.adapter.ColorAdapter
 import com.jintin.app.adapter.StringAdapter
 import com.jintin.mixadapter.MixAdapter
 
+/**
+ * Multi holder example of MixAdapter
+ */
 class MultiTypeActivity : BaseActivity() {
 
     private val itemsA = listOf("A1", "A2", "A3", "A4", "A5")

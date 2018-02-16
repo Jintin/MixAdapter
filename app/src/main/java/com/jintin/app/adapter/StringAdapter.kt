@@ -14,6 +14,9 @@ import com.jintin.app.R
 class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<StringAdapter.Holder>() {
     private var listener: OnAdapterItemClickListener? = null
 
+    /**
+     * Adapter click callback
+     */
     interface OnAdapterItemClickListener {
         fun onItemClick(position: Int)
     }
@@ -40,6 +43,9 @@ class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<Stri
         this.listener = listener
     }
 
+    /**
+     * Sample holder
+     */
     class Holder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var textView: TextView = itemView.findViewById(R.id.text)
     }

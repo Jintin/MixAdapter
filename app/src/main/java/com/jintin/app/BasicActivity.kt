@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView
 import com.jintin.app.adapter.StringAdapter
 import com.jintin.mixadapter.MixAdapter
 
+/**
+ * Simple usage of MixAdapter
+ */
 class BasicActivity : BaseActivity() {
 
     private val itemsA = listOf("A1", "A2", "A3", "A4", "A5")
