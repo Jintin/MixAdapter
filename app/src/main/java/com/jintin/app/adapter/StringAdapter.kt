@@ -45,7 +45,7 @@ class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<Stri
     /**
      * callback of adapter item click listener
      */
-    fun setItemClickListener(listener: OnAdapterItemClickListener) {
+    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
         this.listener = listener
     }
 

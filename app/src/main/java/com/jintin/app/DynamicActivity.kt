@@ -29,7 +29,7 @@ class DynamicActivity : BaseActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
-    override fun getAdapter(): RecyclerView.Adapter<StringAdapter.Holder> {
+    override fun getAdapter(): MixAdapter<StringAdapter.Holder> {
         val adapter = MixAdapter<StringAdapter.Holder>()
         val adapterA = StringAdapter(itemsA)
         val adapterB = StringAdapter(itemsB)
@@ -42,7 +42,7 @@ class DynamicActivity : BaseActivity() {
 
     private fun addChild(items: MutableList<String>, adapter: StringAdapter, mixAdapter: MixAdapter<StringAdapter.Holder>) {
         mixAdapter.addAdapter(adapter)
-        adapter.setItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
+        adapter.setOnItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
             override fun onItemClick(position: Int) {
                 val childPosition = position - mixAdapter.getAdapterOffset(adapter)
                 showDialog(onDelete = {

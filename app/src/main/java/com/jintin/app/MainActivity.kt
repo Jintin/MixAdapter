@@ -1,34 +1,41 @@
 package com.jintin.app
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import kotlin.reflect.KClass
 
 /**
  * Project root
  */
 class MainActivity : AppCompatActivity() {
+
+    class ListItem(val title: String, val kClass: KClass<out Activity>) {
+        override fun toString(): String {
+            return title
+        }
+    }
+
+    private val items = arrayOf(
+            ListItem("Basic", BasicActivity::class),
+            ListItem("Grid", GridActivity::class),
+            ListItem("Multi-Holder", MultiTypeActivity::class),
+            ListItem("Dynamic", DynamicActivity::class)
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val listView = findViewById<ListView>(R.id.listView)
-        val items = arrayOf("Basic", "Grid", "Multi-Holder", "Dynamic")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
-        listView.adapter = adapter
-        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            showActivity(position)
-        }
+        listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+        listView.setOnItemClickListener { _, _, position, _ -> showActivity(position) }
+
     }
 
     private fun showActivity(position: Int) {
-        when (position) {
-            0 -> startActivity(Intent(this, BasicActivity::class.java))
-            1 -> startActivity(Intent(this, GridActivity::class.java))
-            2 -> startActivity(Intent(this, MultiTypeActivity::class.java))
-            3 -> startActivity(Intent(this, DynamicActivity::class.java))
-        }
+        startActivity(Intent(this, items[position].kClass.java))
     }
 }

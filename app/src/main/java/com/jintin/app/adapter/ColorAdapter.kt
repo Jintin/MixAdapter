@@ -1,18 +1,16 @@
 package com.jintin.app.adapter
 
-import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.jintin.app.R
 
 /**
  * multiple view holder type example
  */
-class ColorAdapter(private val context: Context, private val items: List<Color>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return position % 3 + 1
@@ -38,7 +36,7 @@ class ColorAdapter(private val context: Context, private val items: List<Color>)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val color = ContextCompat.getColor(context, items[position].value)
+        val color = ContextCompat.getColor(holder.itemView.context, items[position].value)
         when (getItemViewType(position)) {
             TYPE_HOLDER1 -> {
                 if (holder is Holder1) {

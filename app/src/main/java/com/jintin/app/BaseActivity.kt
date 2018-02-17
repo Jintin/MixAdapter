@@ -19,5 +19,5 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected abstract fun setupRecyclerView(recyclerView: RecyclerView)
 
-    protected abstract fun getAdapter(): RecyclerView.Adapter<*>
+    protected abstract fun getAdapter(): RecyclerView.Adapter<out RecyclerView.ViewHolder>
 }

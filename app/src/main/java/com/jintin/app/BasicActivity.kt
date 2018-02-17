@@ -21,10 +21,11 @@ class BasicActivity : BaseActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
-    override fun getAdapter(): RecyclerView.Adapter<StringAdapter.Holder> {
-        val adapterA = StringAdapter(itemsA)
-        val adapterB = StringAdapter(itemsB)
-        val adapterC = StringAdapter(itemsC)
-        return MixAdapter<StringAdapter.Holder>(mutableListOf(adapterA, adapterB, adapterC))
+    override fun getAdapter(): MixAdapter<StringAdapter.Holder> {
+        val adapter = MixAdapter<StringAdapter.Holder>()
+        adapter.addAdapter(StringAdapter(itemsA))
+        adapter.addAdapter(StringAdapter(itemsB))
+        adapter.addAdapter(StringAdapter(itemsC))
+        return adapter
     }
 }

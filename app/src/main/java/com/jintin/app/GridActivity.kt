@@ -26,7 +26,7 @@ class GridActivity : BaseActivity() {
         recyclerView.layoutManager = layoutManager
     }
 
-    override fun getAdapter(): RecyclerView.Adapter<StringAdapter.Holder> {
+    override fun getAdapter(): MixAdapter<StringAdapter.Holder> {
         val adapter = MixAdapter<StringAdapter.Holder>()
         val adapterA = StringAdapter(itemsA)
         val adapterB = StringAdapter(itemsB)
@@ -40,7 +40,7 @@ class GridActivity : BaseActivity() {
 
     private fun addChild(mixAdapter: MixAdapter<StringAdapter.Holder>, adapter: StringAdapter) {
         mixAdapter.addAdapter(adapter)
-        adapter.setItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
+        adapter.setOnItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
             override fun onItemClick(position: Int) {
                 val childPosition = position - mixAdapter.getAdapterOffset(adapter)
                 showToast(childPosition, position)

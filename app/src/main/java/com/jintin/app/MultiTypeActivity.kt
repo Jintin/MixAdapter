@@ -27,13 +27,13 @@ class MultiTypeActivity : BaseActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
-    override fun getAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    override fun getAdapter(): MixAdapter<RecyclerView.ViewHolder> {
         val adapterA = StringAdapter(itemsA)
         val adapterB = StringAdapter(itemsB)
         val adapterC = StringAdapter(itemsC)
-        val adapter1 = ColorAdapter(this, items1)
-        val adapter2 = ColorAdapter(this, items2)
-        val adapter3 = ColorAdapter(this, items3)
+        val adapter1 = ColorAdapter(items1)
+        val adapter2 = ColorAdapter(items2)
+        val adapter3 = ColorAdapter(items3)
         return MixAdapter(mutableListOf(adapterA, adapter1, adapterB, adapter2, adapterC, adapter3))
     }
 
