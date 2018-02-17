@@ -18,6 +18,9 @@ class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<Stri
      * Adapter click callback
      */
     interface OnAdapterItemClickListener {
+        /**
+         * Callbcak of adapter item click
+         */
         fun onItemClick(position: Int)
     }
 

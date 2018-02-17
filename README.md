@@ -1,6 +1,7 @@
 # MixAdapter
 
 [![Build Status](https://travis-ci.org/Jintin/MixAdapter.svg?branch=master)](https://travis-ci.org/Jintin/MixAdapter)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/da2c855d2b8341f39205f4d87d6790db)](https://www.codacy.com/app/Jintin/MixAdapter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jintin/MixAdapter&amp;utm_campaign=Badge_Grade)
 
 Compose multiple Adapter for RecyclerView in Android
 

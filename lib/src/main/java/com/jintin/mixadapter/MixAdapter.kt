@@ -19,11 +19,6 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         this.adapters = adapters
     }
 
-    fun addAdapter(adapter: RecyclerView.Adapter<out T>) {
-        adapters.add(adapter)
-        notifyDataSetChanged()
-    }
-
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
         adapters.forEach {
             it.onAttachedToRecyclerView(recyclerView)
@@ -116,7 +111,6 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         return adapters.sumBy { it.itemCount }
     }
 
-
     override fun getItemId(position: Int): Long {
         var offset = 0
         adapters.forEach {
@@ -127,6 +121,14 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
             }
         }
         return NO_ID
+    }
+
+    /**
+     * Add adapter into MixAdapter
+     */
+    fun addAdapter(adapter: RecyclerView.Adapter<out T>) {
+        adapters.add(adapter)
+        notifyDataSetChanged()
     }
 
     /**
