@@ -42,19 +42,17 @@ class DynamicActivity : BaseActivity() {
 
     private fun addChild(items: MutableList<String>, adapter: StringAdapter, mixAdapter: MixAdapter<StringAdapter.Holder>) {
         mixAdapter.addAdapter(adapter)
-        adapter.setOnItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
-            override fun onItemClick(position: Int) {
-                val childPosition = position - mixAdapter.getAdapterOffset(adapter)
-                showDialog(onDelete = {
-                    items.removeAt(childPosition)
-                    mixAdapter.notifyItemRemoved(position)
-                }, onClone = {
-                    val string = items[childPosition]
-                    items.add(childPosition + 1, string)
-                    mixAdapter.notifyItemInserted(position + 1)
-                })
-            }
-        })
+        adapter.setOnItemClickListener { position ->
+            val childPosition = position - mixAdapter.getAdapterOffset(adapter)
+            showDialog(onDelete = {
+                items.removeAt(childPosition)
+                mixAdapter.notifyItemRemoved(position)
+            }, onClone = {
+                val string = items[childPosition]
+                items.add(childPosition + 1, string)
+                mixAdapter.notifyItemInserted(position + 1)
+            })
+        }
     }
 
     private fun showDialog(onDelete: () -> Unit, onClone: () -> Unit) {

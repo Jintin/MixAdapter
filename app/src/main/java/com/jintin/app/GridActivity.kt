@@ -40,12 +40,10 @@ class GridActivity : BaseActivity() {
 
     private fun addChild(mixAdapter: MixAdapter<StringAdapter.Holder>, adapter: StringAdapter) {
         mixAdapter.addAdapter(adapter)
-        adapter.setOnItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
-            override fun onItemClick(position: Int) {
-                val childPosition = position - mixAdapter.getAdapterOffset(adapter)
-                showToast(childPosition, position)
-            }
-        })
+        adapter.setOnItemClickListener { position ->
+            val childPosition = position - mixAdapter.getAdapterOffset(adapter)
+            showToast(childPosition, position)
+        }
     }
 
     private fun showToast(childPosition: Int, position: Int) {

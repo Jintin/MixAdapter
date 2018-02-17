@@ -12,24 +12,14 @@ import com.jintin.app.R
  * basic adapter example
  */
 class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<StringAdapter.Holder>() {
-    private var listener: OnAdapterItemClickListener? = null
-
-    /**
-     * Adapter click callback
-     */
-    interface OnAdapterItemClickListener {
-        /**
-         * Callbcak of adapter item click
-         */
-        fun onItemClick(position: Int)
-    }
+    private var onClickCallback: ((position: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_string, parent, false)
         val holder = Holder(view)
         view.setOnClickListener {
             val position = holder.adapterPosition
-            listener?.onItemClick(position)
+            onClickCallback?.invoke(position)
         }
         return holder
     }
@@ -45,8 +35,8 @@ class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<Stri
     /**
      * callback of adapter item click listener
      */
-    fun setOnItemClickListener(listener: OnAdapterItemClickListener) {
-        this.listener = listener
+    fun setOnItemClickListener(listener: (position: Int) -> Unit) {
+        this.onClickCallback = listener
     }
 
     /**
