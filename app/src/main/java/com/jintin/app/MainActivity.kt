@@ -19,12 +19,16 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         listView.adapter = adapter
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            when (position) {
-                0 -> startActivity(Intent(this@MainActivity, BasicActivity::class.java))
-                1 -> startActivity(Intent(this@MainActivity, GridActivity::class.java))
-                2 -> startActivity(Intent(this@MainActivity, MultiTypeActivity::class.java))
-                3 -> startActivity(Intent(this@MainActivity, DynamicActivity::class.java))
-            }
+            showActivity(position)
+        }
+    }
+
+    private fun showActivity(position: Int) {
+        when (position) {
+            0 -> startActivity(Intent(this, BasicActivity::class.java))
+            1 -> startActivity(Intent(this, GridActivity::class.java))
+            2 -> startActivity(Intent(this, MultiTypeActivity::class.java))
+            3 -> startActivity(Intent(this, DynamicActivity::class.java))
         }
     }
 }

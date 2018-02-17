@@ -3,7 +3,6 @@ package com.jintin.mixadapter
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.NO_ID
 import android.view.ViewGroup
-import java.lang.RuntimeException
 import java.util.*
 
 /**
@@ -90,7 +89,7 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
                 index -= it.itemCount
             }
         }
-        throw RuntimeException("not found view type in adapters")
+        throw IllegalArgumentException("not found view type in adapters")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T {
@@ -130,6 +129,9 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         return NO_ID
     }
 
+    /**
+     * Get start position of given adapter in MixAdapter
+     */
     fun getAdapterOffset(target: RecyclerView.Adapter<*>): Int {
         var offset = 0
         for (adapter in adapters) {

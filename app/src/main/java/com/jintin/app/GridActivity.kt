@@ -43,8 +43,12 @@ class GridActivity : BaseActivity() {
         adapter.setItemClickListener(object : StringAdapter.OnAdapterItemClickListener {
             override fun onItemClick(position: Int) {
                 val childPosition = position - mixAdapter.getAdapterOffset(adapter)
-                Toast.makeText(this@GridActivity, "child: $childPosition, global: $position", Toast.LENGTH_SHORT).show()
+                showToast(childPosition, position)
             }
         })
+    }
+
+    private fun showToast(childPosition: Int, position: Int) {
+        Toast.makeText(this, "child: $childPosition, global: $position", Toast.LENGTH_SHORT).show()
     }
 }
