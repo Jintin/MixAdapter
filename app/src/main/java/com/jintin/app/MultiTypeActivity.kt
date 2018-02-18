@@ -22,8 +22,7 @@ class MultiTypeActivity : BaseActivity() {
     private val items3 = listOf(Color.PURPLE, Color.ORANGE, Color.BLUE, Color.GREEN, Color.RED)
 
     override fun setupRecyclerView(recyclerView: RecyclerView) {
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 

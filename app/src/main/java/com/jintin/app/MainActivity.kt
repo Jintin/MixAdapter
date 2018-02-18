@@ -13,6 +13,9 @@ import kotlin.reflect.KClass
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Item to show in List
+     */
     class ListItem(val title: String, val kClass: KClass<out Activity>) {
         override fun toString(): String {
             return title
@@ -32,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
         listView.setOnItemClickListener { _, _, position, _ -> showActivity(position) }
-
     }
 
     private fun showActivity(position: Int) {

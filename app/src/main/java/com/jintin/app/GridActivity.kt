@@ -22,8 +22,7 @@ class GridActivity : BaseActivity() {
     }
 
     override fun setupRecyclerView(recyclerView: RecyclerView) {
-        val layoutManager = GridLayoutManager(this, 2)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
     }
 
     override fun getAdapter(): MixAdapter<StringAdapter.Holder> {

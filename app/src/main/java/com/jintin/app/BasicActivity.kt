@@ -16,8 +16,7 @@ class BasicActivity : BaseActivity() {
     private val itemsC = listOf("C1", "C2", "C3", "C4", "C5")
 
     override fun setupRecyclerView(recyclerView: RecyclerView) {
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
