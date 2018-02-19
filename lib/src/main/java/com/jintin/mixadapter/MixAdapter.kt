@@ -31,27 +31,6 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         }
     }
 
-    override fun onViewAttachedToWindow(holder: T) {
-        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
-                .forEach {
-                    it.onViewAttachedToWindow(holder)
-                }
-    }
-
-    override fun onViewDetachedFromWindow(holder: T) {
-        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
-                .forEach {
-                    it.onViewDetachedFromWindow(holder)
-                }
-    }
-
-    override fun onViewRecycled(holder: T) {
-        adapters.filterIsInstance<RecyclerView.Adapter<T>>()
-                .forEach {
-                    it.onViewRecycled(holder)
-                }
-    }
-
     override fun setHasStableIds(hasStableIds: Boolean) {
         super.setHasStableIds(hasStableIds)
         adapters.forEach {

@@ -55,6 +55,9 @@ class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<ColorH
      * Sample base holder
      */
     abstract class ColorHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        /**
+         * bind color to View
+         */
         abstract fun bindColor(color: Int)
     }
 
