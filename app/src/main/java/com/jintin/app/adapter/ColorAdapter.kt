@@ -6,57 +6,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jintin.app.R
+import com.jintin.app.adapter.ColorAdapter.ColorHolder
 
 /**
  * multiple view holder type example
  */
-class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<ColorHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return position % 3 + 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorHolder? {
+        val inflater = LayoutInflater.from(parent.context)
         when (viewType) {
             TYPE_HOLDER1 -> {
-                val view1 = LayoutInflater.from(parent.context).inflate(R.layout.adapter_color, parent, false)
+                val view1 = inflater.inflate(R.layout.adapter_color, parent, false)
                 return Holder1(view1)
             }
             TYPE_HOLDER2 -> {
-                val view2 = LayoutInflater.from(parent.context).inflate(R.layout.adapter_color2, parent, false)
+                val view2 = inflater.inflate(R.layout.adapter_color2, parent, false)
                 return Holder2(view2)
             }
             TYPE_HOLDER3 -> {
-                val view3 = LayoutInflater.from(parent.context).inflate(R.layout.adapter_color3, parent, false)
+                val view3 = inflater.inflate(R.layout.adapter_color3, parent, false)
                 return Holder3(view3)
             }
         }
         return null
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: ColorHolder, position: Int) {
         val color = ContextCompat.getColor(holder.itemView.context, items[position].value)
-        when (getItemViewType(position)) {
-            TYPE_HOLDER1 -> {
-                if (holder is Holder1) {
-                    holder.colorView.setBackgroundColor(color)
-                }
-            }
-            TYPE_HOLDER2 -> {
-                if (holder is Holder2) {
-                    holder.colorView.setBackgroundColor(color)
-                    holder.colorView2.setBackgroundColor(color)
-                }
-            }
-            TYPE_HOLDER3 -> {
-                if (holder is Holder3) {
-                    holder.colorView.setBackgroundColor(color)
-                    holder.colorView2.setBackgroundColor(color)
-                    holder.colorView3.setBackgroundColor(color)
-                }
-            }
-        }
+        holder.bindColor(color)
     }
 
     override fun getItemCount(): Int {
@@ -64,32 +46,54 @@ class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<Recycl
     }
 
     companion object {
-        private const val TYPE_HOLDER1 = 1
-        private const val TYPE_HOLDER2 = 2
-        private const val TYPE_HOLDER3 = 3
+        const val TYPE_HOLDER1 = 1
+        const val TYPE_HOLDER2 = 2
+        const val TYPE_HOLDER3 = 3
+    }
+
+    /**
+     * Sample base holder
+     */
+    abstract class ColorHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        abstract fun bindColor(color: Int)
     }
 
     /**
      * Sample holder 1
      */
-    class Holder1 constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var colorView: View = itemView.findViewById(R.id.color)
+    private class Holder1 constructor(itemView: View) : ColorHolder(itemView) {
+        private var colorView: View = itemView.findViewById(R.id.color)
+
+        override fun bindColor(color: Int) {
+            colorView.setBackgroundColor(color)
+        }
     }
 
     /**
      * Sample holder 2
      */
-    class Holder2 constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var colorView: View = itemView.findViewById(R.id.color)
-        internal var colorView2: View = itemView.findViewById(R.id.color2)
+    private class Holder2 constructor(itemView: View) : ColorHolder(itemView) {
+        private var colorView: View = itemView.findViewById(R.id.color)
+        private var colorView2: View = itemView.findViewById(R.id.color2)
+
+        override fun bindColor(color: Int) {
+            colorView.setBackgroundColor(color)
+            colorView2.setBackgroundColor(color)
+        }
     }
 
     /**
      * Sample holder 3
      */
-    class Holder3 constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var colorView: View = itemView.findViewById(R.id.color)
-        internal var colorView2: View = itemView.findViewById(R.id.color2)
-        internal var colorView3: View = itemView.findViewById(R.id.color3)
+    private class Holder3 constructor(itemView: View) : ColorHolder(itemView) {
+        private var colorView: View = itemView.findViewById(R.id.color)
+        private var colorView2: View = itemView.findViewById(R.id.color2)
+        private var colorView3: View = itemView.findViewById(R.id.color3)
+
+        override fun bindColor(color: Int) {
+            colorView.setBackgroundColor(color)
+            colorView2.setBackgroundColor(color)
+            colorView3.setBackgroundColor(color)
+        }
     }
 }
