@@ -13,9 +13,7 @@ import com.jintin.app.adapter.ColorAdapter.ColorHolder
  */
 class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<ColorHolder>() {
 
-    override fun getItemViewType(position: Int): Int {
-        return position % 3 + 1
-    }
+    override fun getItemViewType(position: Int) = position % 3 + 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorHolder? {
         val inflater = LayoutInflater.from(parent.context)
@@ -41,9 +39,7 @@ class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<ColorH
         holder.bindColor(color)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items.size
 
     companion object {
         const val TYPE_HOLDER1 = 1
