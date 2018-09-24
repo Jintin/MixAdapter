@@ -1,4 +1,6 @@
 language: android
+before_script:
+  - touch local.properties
 android:
   components:
     - build-tools-26.0.2
