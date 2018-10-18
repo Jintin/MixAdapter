@@ -86,9 +86,7 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
                 }
     }
 
-    override fun getItemCount(): Int {
-        return adapters.sumBy { it.itemCount }
-    }
+    override fun getItemCount(): Int = adapters.sumBy { it.itemCount }
 
     override fun getItemId(position: Int): Long {
         var offset = 0

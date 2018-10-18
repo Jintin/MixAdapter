@@ -27,9 +27,7 @@ class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<Stri
         holder.textView.text = items[position]
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     /**
      * callback of adapter item click listener
