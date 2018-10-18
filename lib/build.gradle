@@ -1,3 +1,4 @@
+apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
@@ -28,4 +29,13 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+publish {
+    userOrg = 'jintin'
+    groupId = 'com.github.jintin'
+    artifactId = 'MixAdapter'
+    publishVersion = '1.1'
+    desc = 'Compose multiple Adapter for RecyclerView in Android'
+    website = 'https://github.com/Jintin/MixAdapter'
 }
