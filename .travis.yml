@@ -13,3 +13,8 @@ android:
     - 'google-gdk-license-.+'
 install:
     - echo yes | sdkmanager "tools"
+deploy:
+  provider: script
+  script: ./gradlew clean build bintrayUpload -PbintrayUser=jintin -PbintrayKey=$BINTRAY_KEY -PdryRun=false
+  on:
+    branch: master
