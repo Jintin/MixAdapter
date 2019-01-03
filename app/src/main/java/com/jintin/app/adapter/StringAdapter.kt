@@ -10,7 +10,7 @@ import com.jintin.app.R
 /**
  * basic adapter example
  */
-class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<StringAdapter.Holder>() {
+open class StringAdapter(private val items: List<String>) : RecyclerView.Adapter<StringAdapter.Holder>() {
     private var onItemClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
