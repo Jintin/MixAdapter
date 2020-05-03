@@ -35,5 +35,9 @@
             android:name=".DynamicActivity"
             android:label="Dynamic"
             />
+        <activity
+            android:name=".DiffActivity"
+            android:label="DiffUtil"
+            />
     </application>
 </manifest>

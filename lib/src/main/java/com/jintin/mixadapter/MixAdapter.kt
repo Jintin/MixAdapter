@@ -19,13 +19,13 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         this.adapters = adapters
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         adapters.forEach {
             it.onAttachedToRecyclerView(recyclerView)
         }
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         adapters.forEach {
             it.onDetachedFromRecyclerView(recyclerView)
         }
@@ -35,20 +35,6 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
         super.setHasStableIds(hasStableIds)
         adapters.forEach {
             it.setHasStableIds(hasStableIds)
-        }
-    }
-
-    override fun registerAdapterDataObserver(observer: RecyclerView.AdapterDataObserver?) {
-        super.registerAdapterDataObserver(observer)
-        adapters.forEach {
-            it.registerAdapterDataObserver(observer)
-        }
-    }
-
-    override fun unregisterAdapterDataObserver(observer: RecyclerView.AdapterDataObserver?) {
-        super.unregisterAdapterDataObserver(observer)
-        adapters.forEach {
-            it.unregisterAdapterDataObserver(observer)
         }
     }
 
@@ -104,6 +90,7 @@ class MixAdapter<T : RecyclerView.ViewHolder> : RecyclerView.Adapter<T> {
      * Add adapter into MixAdapter
      */
     fun addAdapter(adapter: RecyclerView.Adapter<out T>) {
+        adapter.registerAdapterDataObserver(NestedAdapterDataObserver(this, adapter))
         adapters.add(adapter)
         notifyDataSetChanged()
     }

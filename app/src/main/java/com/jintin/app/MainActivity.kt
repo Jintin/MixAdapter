@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
             ListItem("Basic", BasicActivity::class),
             ListItem("Grid", GridActivity::class),
             ListItem("Multi-Holder", MultiTypeActivity::class),
-            ListItem("Dynamic", DynamicActivity::class)
+            ListItem("Dynamic", DynamicActivity::class),
+            ListItem("DiffUtil", DiffActivity::class)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

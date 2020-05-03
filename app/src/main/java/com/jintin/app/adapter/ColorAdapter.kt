@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jintin.app.R
 import com.jintin.app.adapter.ColorAdapter.ColorHolder
+import java.lang.Exception
 
 /**
  * multiple view holder type example
@@ -15,7 +16,7 @@ class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<ColorH
 
     override fun getItemViewType(position: Int) = position % 3 + 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorHolder {
         val inflater = LayoutInflater.from(parent.context)
         when (viewType) {
             TYPE_HOLDER1 -> {
@@ -31,7 +32,7 @@ class ColorAdapter(private val items: List<Color>) : RecyclerView.Adapter<ColorH
                 return Holder3(view3)
             }
         }
-        return null
+        throw Exception("Unsupported view type")
     }
 
     override fun onBindViewHolder(holder: ColorHolder, position: Int) {
